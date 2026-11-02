@@ -1,0 +1,54 @@
+# Test Plan: Travel Plan
+
+## 1. Objective
+
+Verify that the three main user flows of Travel Plan work as expected on the web app: login, creating a new route and exploring the map.
+
+## 2. Scope
+
+**In scope**
+
+- Login with email and password (valid and invalid credentials)
+- Creating a new route with origin, destination and stops
+- Exploring the map: searching, filtering and opening points of interest
+
+**Out of scope (for now)**
+
+- iOS and Android apps
+- Payments and subscriptions
+- Performance and load testing
+- Admin area
+
+## 3. Approach
+
+- **Automated end-to-end tests** with Playwright (TypeScript), run on every push through GitHub Actions.
+- **Exploratory testing** before writing each automated test, to understand the flow and find edge cases.
+- **Bug reports** written with steps to reproduce, expected result, actual result and evidence (screenshot or video).
+
+## 4. Environments
+
+| Item | Value |
+| --- | --- |
+| App URL | `<published URL>` |
+| Browsers | Chromium, Firefox, WebKit |
+| Viewports | Desktop (1280x720) and mobile (390x844) |
+| Test account | Dedicated test user, never a real customer account |
+
+## 5. Test data
+
+- A dedicated test account, stored in GitHub Secrets (never in the code).
+- Known points of interest used as fixed references in map tests.
+
+## 6. Entry and exit criteria
+
+**Entry:** the app is published and the test account works.
+
+**Exit:** all high-priority test cases pass, and every failure has a bug report.
+
+## 7. Risks
+
+| Risk | Mitigation |
+| --- | --- |
+| Map loads slowly (90,000+ points) | Wait for specific elements, never fixed timeouts |
+| Map data changes over time | Use stable points of interest as references |
+| Tests affect production data | Use only the test account and clean up created routes |
